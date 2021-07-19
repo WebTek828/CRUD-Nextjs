@@ -1,0 +1,32 @@
+.form {
+  width: 38rem;
+  background: rgb(255, 255, 255);
+  padding: 4rem;
+  z-index: 10;
+  top: 4rem;
+  left: 50%;
+  transform: translate(-50%, -200rem);
+  opacity: 0;
+  visibility: none;
+  transition: all 0.3s;
+  position: fixed;
+}
+.inputContainer {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.show {
+  transform: translate(-50%, 0);
+  animation: showGradually 1s;
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes showGradually {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,12 @@
+.inputContainer {
+  width: 100%;
+}
+.input {
+  width: 100%;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.192);
+}
+.inputLabel {
+  margin-bottom: 0.4rem;
+  display: block;
+}
