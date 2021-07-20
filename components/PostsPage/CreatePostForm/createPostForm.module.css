@@ -1,7 +1,7 @@
 .form {
   width: 38rem;
   background: rgb(255, 255, 255);
-  padding: 4rem;
+  padding-top: 0;
   z-index: 10;
   top: 4rem;
   left: 50%;
@@ -10,6 +10,18 @@
   visibility: none;
   transition: all 0.3s;
   position: fixed;
+}
+.form__header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+}
+.form__header span {
+  cursor: pointer;
+}
+.inputsContainer {
+  padding: 4rem 2rem;
 }
 .inputContainer {
   width: 100%;
@@ -20,6 +32,11 @@
   animation: showGradually 1s;
   visibility: visible;
   opacity: 1;
+}
+
+.form__btn {
+  width: 100%;
+  margin: 0;
 }
 
 @keyframes showGradually {

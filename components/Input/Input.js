@@ -17,6 +17,12 @@ const inputReducer = (state, action) => {
 
 const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
+  const { isValid, value } = inputState;
+
+  useEffect(() => {
+    props.changeInputVal({ isValid, value, id: props.id });
+  }, [value, isValid]);
+
   let input;
   const { type, label, errorMsg, inputType } = props;
   if (inputType === "textarea") {
