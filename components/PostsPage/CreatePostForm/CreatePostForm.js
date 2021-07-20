@@ -31,9 +31,22 @@ const CreatePostForm = (props) => {
     });
   };
 
-  const createPostHandler = (e) => {
+  const createPostHandler = async (e) => {
+    const data = {
+      title: inputVals.title.value,
+      description: inputVals.description.value,
+      username: "Fictitious Name",
+    };
     e.preventDefault();
-    console.log(inputVals);
+    const resp = await fetch(`http://localhost:3000/api/posts`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const newUser = await resp.json();
+    console.log(newUser);
   };
 
   return (
