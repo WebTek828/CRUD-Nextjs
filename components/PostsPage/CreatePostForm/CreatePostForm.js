@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./createPostForm.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import Input from "../../Input/Input";
 import BackDrop from "../../BackDrop/BackDrop";
@@ -40,7 +42,10 @@ const CreatePostForm = (props) => {
       <form onSubmit={createPostHandler} className={formCls.join(" ")}>
         <div className={styles.form__header}>
           <h3>Create Post</h3>
-          <span onClick={props.hideCreateForm}>X</span>
+          <FontAwesomeIcon
+            onClick={props.hideCreateForm}
+            icon={faTimes}
+          ></FontAwesomeIcon>
         </div>
         <div className={styles.inputsContainer}>
           <div className={styles.inputContainer}>
