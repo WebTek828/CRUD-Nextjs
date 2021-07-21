@@ -1,6 +1,6 @@
-import connectDB from "../../connectDB";
+import connectDB from "../../../connectDB";
 
-import Posts from "../../models/Posts";
+import Posts from "../../../models/Posts";
 
 const handler = async (req, res) => {
   connectDB();
@@ -14,6 +14,8 @@ const handler = async (req, res) => {
       },
       title,
       description,
+      liked: [],
+      comments: [],
     });
     res.status(200).json({ newPost });
   } else if (req.method === "GET") {

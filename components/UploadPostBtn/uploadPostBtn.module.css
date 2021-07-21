@@ -2,5 +2,19 @@
   position: fixed;
   right: 4rem;
   top: 4rem;
-  border-radius: 50px;
+  border-radius: 50px !important;
+  padding: 0.8rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.upload:hover span {
+  display: inline-block;
+  margin-left: 0.4rem;
+}
+.upload svg {
+  display: inline-block;
+}
+.upload span {
+  display: none;
 }
