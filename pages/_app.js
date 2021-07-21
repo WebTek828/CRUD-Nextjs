@@ -5,15 +5,15 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
 import Layout from "../components/Layout/Layout";
-import { MyContext } from "../context/authContext";
+import Provider from "../context/authContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <MyContext.Provider value={{ greeting: "Hello" }}>
+    <Provider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </MyContext.Provider>
+    </Provider>
   );
 }
 

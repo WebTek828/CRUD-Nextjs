@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styles from "./Auth.module.css";
 
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import { MyContext } from "../../context/authContext";
 
 const Auth = (props) => {
+  const context = useContext(MyContext);
+
   const [authMode, setAuthMode] = useState("login");
   const [inputVals, setInputVals] = useState({
     email: {
@@ -55,7 +58,7 @@ const Auth = (props) => {
       });
       authResult = await resp.json();
     }
-    console.log(authResult);
+    context.login(authResult);
   };
 
   const changeModeHandler = () => {

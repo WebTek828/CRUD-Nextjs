@@ -1,13 +1,11 @@
-import { useReducer, useEffect, useContext } from "react";
-import { MyContext } from "../../context/authContext";
+import { useReducer, useEffect } from "react";
 
 import styles from "./input.module.css";
 
 const checkValidity = (val, rules) => {
-  const context = useContext(MyContext);
   let isValid;
   if (!rules) {
-    isValid = true;
+    isValid = val.length > 0;
   } else {
     if (rules.type === "MIN_LENGTH") {
       isValid = val.length >= rules.minLength;
