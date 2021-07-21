@@ -34,6 +34,9 @@ const Auth = (props) => {
       const resp = await fetch(`http://localhost:3000/api/login`, {
         method: "POST",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       const result = await resp.json();
     } else if (authMode === "register") {
@@ -42,12 +45,16 @@ const Auth = (props) => {
         email: inputVals.email.value,
         password: inputVals.password.value,
       };
-      console.log("Hello");
       const resp = await fetch(`http://localhost:3000/api/signup`, {
         method: "POST",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+      console.log(resp);
       const result = await resp.json();
+      console.log("Hello");
 
       console.log(result);
     }
