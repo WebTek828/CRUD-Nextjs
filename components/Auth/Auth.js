@@ -4,6 +4,7 @@ import styles from "./Auth.module.css";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import { MyContext } from "../../context/authContext";
+import useCheckAllValid from "../customHooks/useCheckAllValid";
 
 const Auth = (props) => {
   const context = useContext(MyContext);
@@ -19,6 +20,8 @@ const Auth = (props) => {
       isValid: false,
     },
   });
+
+  const [isAllValid] = useCheckAllValid(inputVals, authMode);
 
   const changeInputValHandler = (obj) => {
     const { id, value, isValid } = obj;
@@ -101,7 +104,9 @@ const Auth = (props) => {
           errorMsg="Invalid Password"
           rules={{ type: "MIN_LENGTH", minLength: 5 }}
         />
-        <Button className={styles.loginBtn}>Submit</Button>
+        <Button disabled={!isAllValid} className={styles.loginBtn}>
+          Submit
+        </Button>
         <Button
           clicked={changeModeHandler}
           className={styles.registerBtn}

@@ -11,7 +11,6 @@ const checkValidity = (val, rules) => {
       isValid = val.length >= rules.minLength;
     }
   }
-  console.log(isValid);
   return isValid;
 };
 

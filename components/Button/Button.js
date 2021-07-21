@@ -6,6 +6,7 @@ const Button = (props) => {
     : btnCls.push(styles.secondaryBtn);
   return (
     <button
+      disabled={props.disabled}
       onClick={props.clicked}
       style={props.style}
       className={btnCls.join(" ") + " " + props.className}
