@@ -52,11 +52,7 @@ const Auth = (props) => {
           "Content-Type": "application/json",
         },
       });
-      console.log(resp);
       const result = await resp.json();
-      console.log("Hello");
-
-      console.log(result);
     }
   };
 
@@ -75,6 +71,7 @@ const Auth = (props) => {
             type="username"
             label="Username"
             id="username"
+            mode={authMode}
           />
         )}
 
@@ -83,6 +80,7 @@ const Auth = (props) => {
           inputType="input"
           type="email"
           label="Email"
+          mode={authMode}
           id="email"
         />
         <Input
@@ -90,6 +88,7 @@ const Auth = (props) => {
           inputType="input"
           type="password"
           label="Password"
+          mode={authMode}
           id="password"
         />
         <Button className={styles.loginBtn}>Submit</Button>
@@ -97,6 +96,7 @@ const Auth = (props) => {
           clicked={changeModeHandler}
           className={styles.registerBtn}
           btnType="button"
+          mode={authMode}
           type="primary"
         >
           {authMode === "login" ? "Register" : "Login"}

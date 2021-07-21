@@ -12,12 +12,19 @@ const inputReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
       return { ...state, value: action.changeVal };
+    case "CLEAR_INPUT_VAL":
+      return { ...state, value: "", isValid: false };
   }
 };
 
 const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
+
   const { isValid, value } = inputState;
+
+  useEffect(() => {
+    dispatch({ type: "CLEAR_INPUT_VAL" });
+  }, [props.mode]);
 
   useEffect(() => {
     props.changeInputVal({ isValid, value, id: props.id });
