@@ -1,6 +1,21 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useContext } from "react";
+import { MyContext } from "../../context/authContext";
 
 import styles from "./input.module.css";
+
+const checkValidity = (val, rules) => {
+  const context = useContext(MyContext);
+  let isValid;
+  if (!rules) {
+    isValid = true;
+  } else {
+    if (rules.type === "MIN_LENGTH") {
+      isValid = val.length >= rules.minLength;
+    }
+  }
+  console.log(isValid);
+  return isValid;
+};
 
 const initialState = {
   value: "",
@@ -11,9 +26,18 @@ const initialState = {
 const inputReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
-      return { ...state, value: action.changeVal };
+      return {
+        ...state,
+        value: action.changeVal,
+        isValid: checkValidity(action.changeVal, action.rules),
+      };
     case "CLEAR_INPUT_VAL":
-      return { ...state, value: "", isValid: false };
+      return { ...state, value: "", isValid: false, outFocus: false };
+    case "OUT_FOCUS":
+      return {
+        ...state,
+        outFocus: true,
+      };
   }
 };
 
@@ -35,8 +59,13 @@ const Input = (props) => {
   if (inputType === "textarea") {
     input = (
       <textarea
+        onBlur={() => dispatch({ type: "OUT_FOCUS" })}
         onChange={(e) => {
-          dispatch({ type: "CHANGE", changeVal: e.target.value });
+          dispatch({
+            type: "CHANGE",
+            changeVal: e.target.valuem,
+            rules: props.rules,
+          });
         }}
         className={props.className + " " + styles.input}
         value={inputState.value}
@@ -46,8 +75,13 @@ const Input = (props) => {
   } else {
     input = (
       <input
+        onBlur={() => dispatch({ type: "OUT_FOCUS" })}
         onChange={(e) => {
-          dispatch({ type: "CHANGE", changeVal: e.target.value });
+          dispatch({
+            type: "CHANGE",
+            changeVal: e.target.value,
+            rules: props.rules,
+          });
         }}
         className={props.className + " " + styles.input}
         type={type}
@@ -60,6 +94,9 @@ const Input = (props) => {
     <div className={styles.inputContainer}>
       <label className={styles.inputLabel}>{label}</label>
       {input}
+      {!inputState.isValid && inputState.outFocus && (
+        <p className={styles.errorMsg}>{props.errorMsg}</p>
+      )}
     </div>
   );
 };

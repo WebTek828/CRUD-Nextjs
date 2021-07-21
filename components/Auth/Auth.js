@@ -25,6 +25,7 @@ const Auth = (props) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    let authResult;
     if (authMode === "login") {
       const data = {
         email: inputVals.email.value,
@@ -38,7 +39,7 @@ const Auth = (props) => {
           "Content-Type": "application/json",
         },
       });
-      const result = await resp.json();
+      authResult = await resp.json();
     } else if (authMode === "register") {
       const data = {
         username: inputVals.username.value,
@@ -52,8 +53,9 @@ const Auth = (props) => {
           "Content-Type": "application/json",
         },
       });
-      const result = await resp.json();
+      authResult = await resp.json();
     }
+    console.log(authResult);
   };
 
   const changeModeHandler = () => {
@@ -71,7 +73,9 @@ const Auth = (props) => {
             type="username"
             label="Username"
             id="username"
+            errorMsg="Invalid Username"
             mode={authMode}
+            rules={{ type: "MIN_LENGTH", minLength: 5 }}
           />
         )}
 
@@ -82,6 +86,7 @@ const Auth = (props) => {
           label="Email"
           mode={authMode}
           id="email"
+          errorMsg="Invalid Email"
         />
         <Input
           changeInputVal={changeInputValHandler}
@@ -90,6 +95,8 @@ const Auth = (props) => {
           label="Password"
           mode={authMode}
           id="password"
+          errorMsg="Invalid Password"
+          rules={{ type: "MIN_LENGTH", minLength: 5 }}
         />
         <Button className={styles.loginBtn}>Submit</Button>
         <Button
