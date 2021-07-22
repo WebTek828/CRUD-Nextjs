@@ -29,7 +29,8 @@
   align-items: center;
   border-bottom: 3px solid transparent;
 }
-.nav__lists li:hover {
-  color: rgba(0, 0, 0, 1);
-  border-bottom: 3px solid #f64060;
+.nav__lists li:hover,
+.activeNavLink {
+  color: rgba(0, 0, 0, 1) !important;
+  border-bottom: 3px solid #f64060 !important;
 }
