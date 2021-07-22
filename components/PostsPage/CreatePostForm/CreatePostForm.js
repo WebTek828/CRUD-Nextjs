@@ -53,6 +53,7 @@ const CreatePostForm = (props) => {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${context.curUser.token}`,
       },
     });
     const newPost = await resp.json();
