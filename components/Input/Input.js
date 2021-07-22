@@ -62,7 +62,7 @@ const Input = (props) => {
         onChange={(e) => {
           dispatch({
             type: "CHANGE",
-            changeVal: e.target.valuem,
+            changeVal: e.target.value,
             rules: props.rules,
           });
         }}
