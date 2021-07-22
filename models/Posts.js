@@ -26,6 +26,7 @@ const postsSchema = new mongoose.Schema({
       text: { type: String, required: true },
     },
   ],
+  createdAt: { type: String, required: true },
 });
 
 module.exports = mongoose.models.Post || mongoose.model("Post", postsSchema);

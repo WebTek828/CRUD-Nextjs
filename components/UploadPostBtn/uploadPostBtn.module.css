@@ -1,12 +1,12 @@
 .upload {
   position: fixed;
   right: 4rem;
-  top: 4rem;
   border-radius: 50px !important;
   padding: 0.8rem !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 85%;
 }
 .upload:hover span {
   display: inline-block;

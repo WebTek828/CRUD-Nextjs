@@ -54,6 +54,12 @@
 .descr {
   opacity: 0.8;
 }
+.postedTime {
+  opacity: 0.6;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  display: inline-block;
+}
 .header {
   margin-bottom: 1rem;
   font-weight: 700;

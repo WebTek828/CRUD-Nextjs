@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/posts.module.css";
-
+import moment from "moment";
 import UploadPostBtn from "../../components/UploadPostBtn/UploadPostBtn";
 import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePostForm";
 
 const Posts = ({ posts }) => {
+  //ymd
+
   const router = useRouter();
   const [createPost, setCreatePost] = useState(false);
 
@@ -46,6 +48,9 @@ const Posts = ({ posts }) => {
             <div className={styles.content}>
               <h3 className={styles.header}>{post.title}</h3>
               <p className={styles.descr}>{post.description}</p>
+              <span className={styles.postedTime}>
+                {moment(post.createdAt).fromNow()}
+              </span>
               <div className={styles.postInfo}>
                 <div>
                   <span className={styles.postLikes}>
