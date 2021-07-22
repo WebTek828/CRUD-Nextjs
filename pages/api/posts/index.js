@@ -14,8 +14,6 @@ const handler = async (req, res) => {
       },
       title,
       description,
-      liked: [],
-      comments: [],
     });
     res.status(200).json({ newPost });
   } else if (req.method === "GET") {

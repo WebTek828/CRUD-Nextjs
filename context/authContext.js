@@ -25,8 +25,6 @@ function Provider(props) {
     }
   };
 
-  console.log(curUser);
-
   return (
     <MyContext.Provider
       value={{ curUser, login: (userInfo) => loginHandler(userInfo) }}

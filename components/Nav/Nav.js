@@ -1,7 +1,14 @@
+import { useContext } from "react";
 import Link from "next/link";
 import styles from "./nav.module.css";
+import { MyContext } from "../../context/authContext";
+
+import UserProfile from "./UserProfile/UserProfile";
 
 const Nav = (props) => {
+  const context = useContext(MyContext);
+  const { token: isAuthenticated } = context.curUser;
+
   return (
     <nav className={styles.nav}>
       <h1>Logo</h1>
@@ -12,12 +19,17 @@ const Nav = (props) => {
         <Link href="/posts">
           <li>Posts</li>
         </Link>
-        <Link href="/login">
-          <li>Login</li>
-        </Link>
-        <Link href="/login">
-          <li>Register</li>
-        </Link>
+        {!isAuthenticated && (
+          <Link href="/login">
+            <li>Login</li>
+          </Link>
+        )}
+        {!isAuthenticated && (
+          <Link href="/login">
+            <li>Register</li>
+          </Link>
+        )}
+        {isAuthenticated && <UserProfile curUser={context.curUser} />}
       </ul>
     </nav>
   );

@@ -70,7 +70,7 @@ const Auth = (props) => {
         });
         authResult = await resp.json();
         if (!resp.ok) {
-          stErr(authResult.msg);
+          setErr(authResult.msg);
         }
       }
       context.login(authResult);
@@ -101,7 +101,6 @@ const Auth = (props) => {
             rules={{ type: "MIN_LENGTH", minLength: 5 }}
           />
         )}
-
         <Input
           changeInputVal={changeInputValHandler}
           inputType="input"
