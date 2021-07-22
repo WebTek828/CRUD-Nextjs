@@ -1,0 +1,14 @@
+.formErr {
+  background: red;
+  color: white;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+.errMsg {
+  display: flex;
+}
+.errMsg svg {
+  font-size: 1rem;
+  margin-right: 1rem;
+}

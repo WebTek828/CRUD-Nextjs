@@ -5,11 +5,13 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import { MyContext } from "../../context/authContext";
 import useCheckAllValid from "../customHooks/useCheckAllValid";
+import FormErrMsg from "../ErrorMsg/FormErrMsg/FormErrMsg";
 
 const Auth = (props) => {
   const context = useContext(MyContext);
 
   const [authMode, setAuthMode] = useState("login");
+  const [err, setErr] = useState(false);
   const [inputVals, setInputVals] = useState({
     email: {
       value: "",
@@ -31,47 +33,62 @@ const Auth = (props) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    let authResult;
-    if (authMode === "login") {
-      const data = {
-        email: inputVals.email.value,
-        password: inputVals.password.value,
-      };
-
-      const resp = await fetch(`http://localhost:3000/api/login`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      authResult = await resp.json();
-    } else if (authMode === "register") {
-      const data = {
-        username: inputVals.username.value,
-        email: inputVals.email.value,
-        password: inputVals.password.value,
-      };
-      const resp = await fetch(`http://localhost:3000/api/signup`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      authResult = await resp.json();
+    try {
+      let authResult;
+      if (authMode === "login") {
+        const data = {
+          email: inputVals.email.value,
+          password: inputVals.password.value,
+        };
+        try {
+          const resp = await fetch(`http://localhost:3000/api/login`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          authResult = await resp.json();
+          if (!resp.ok) {
+            setErr(authResult.msg);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } else if (authMode === "register") {
+        const data = {
+          username: inputVals.username.value,
+          email: inputVals.email.value,
+          password: inputVals.password.value,
+        };
+        const resp = await fetch(`http://localhost:3000/api/signup`, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        authResult = await resp.json();
+        if (!resp.ok) {
+          stErr(authResult.msg);
+        }
+      }
+      context.login(authResult);
+    } catch (err) {
+      console.log(err);
     }
-    context.login(authResult);
   };
 
   const changeModeHandler = () => {
     setAuthMode(authMode === "login" ? "register" : "login");
+    setErr(null);
   };
 
   return (
     <div className={styles.auth}>
       <h2 className={styles.header}>Log In</h2>
       <form onSubmit={onSubmitHandler} className={styles.form}>
+        {err && <FormErrMsg msg={err} />}
         {authMode === "register" && (
           <Input
             changeInputVal={changeInputValHandler}
@@ -93,6 +110,7 @@ const Auth = (props) => {
           mode={authMode}
           id="email"
           errorMsg="Invalid Email"
+          rules={{ type: "email" }}
         />
         <Input
           changeInputVal={changeInputValHandler}

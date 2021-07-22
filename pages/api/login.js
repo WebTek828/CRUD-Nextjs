@@ -11,7 +11,7 @@ const handler = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       res
-        .status(500)
+        .status(400)
         .json({ msg: "User with the provided email doesn't exist." });
     } else {
       const { username, email } = user;
@@ -26,7 +26,7 @@ const handler = async (req, res) => {
           );
           res.status(200).json({ token, username, email, userId: user._id });
         } else {
-          res.status(500).json({ msg: "Incorrect password." });
+          res.status(400).json({ msg: "Incorrect password." });
         }
       });
     }

@@ -4,8 +4,10 @@ import styles from "./input.module.css";
 
 const checkValidity = (val, rules) => {
   let isValid;
-  if (!rules) {
-    isValid = val.length > 0;
+  if (rules.type === "email") {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    isValid = re.test(String(val).toLowerCase());
   } else {
     if (rules.type === "MIN_LENGTH") {
       isValid = val.length >= rules.minLength;

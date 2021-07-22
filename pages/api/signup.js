@@ -13,7 +13,7 @@ const handler = async (req, res) => {
     const userExist = await User.findOne({ email });
     if (userExist) {
       res
-        .status(500)
+        .status(400)
         .json({ msg: "User with the provided email already exists." });
     }
 
