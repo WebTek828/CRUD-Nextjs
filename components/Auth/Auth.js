@@ -6,10 +6,11 @@ import Button from "../Button/Button";
 import { MyContext } from "../../context/authContext";
 import useCheckAllValid from "../customHooks/useCheckAllValid";
 import FormErrMsg from "../ErrorMsg/FormErrMsg/FormErrMsg";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const Auth = (props) => {
   const context = useContext(MyContext);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [authMode, setAuthMode] = useState("login");
   const [err, setErr] = useState(false);
   const [inputVals, setInputVals] = useState({
@@ -33,6 +34,7 @@ const Auth = (props) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       let authResult;
       if (authMode === "login") {
@@ -74,8 +76,10 @@ const Auth = (props) => {
         }
       }
       context.login(authResult);
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
 
@@ -86,6 +90,7 @@ const Auth = (props) => {
 
   return (
     <div className={styles.auth}>
+      <LoadingSpinner isLoading={isLoading} />
       <h2 className={styles.header}>Log In</h2>
       <form onSubmit={onSubmitHandler} className={styles.form}>
         {err && <FormErrMsg msg={err} />}
