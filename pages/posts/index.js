@@ -57,6 +57,12 @@ const Posts = ({ posts }) => {
     posts.map((post) => {
       return (
         <div key={post._id}>
+          <DeleteWarningModal
+            showModal={showDeleteWarning}
+            showDeleteWarning={toggleDeleteWarningHandler}
+            toggleDeleteWarning={toggleDeleteWarningHandler}
+            postId={post._id}
+          />
           <div className={styles.updatePostContainer}>
             <div className={styles.creator}>
               <img
@@ -111,11 +117,6 @@ const Posts = ({ posts }) => {
         addNewPost={(post) => addNewPostHandler(post)}
         hideCreateForm={hideCreateFormHandler}
         show={createPost}
-      />
-      <DeleteWarningModal
-        showModal={showDeleteWarning}
-        showDeleteWarning={toggleDeleteWarningHandler}
-        toggleDeleteWarning={toggleDeleteWarningHandler}
       />
       <div onClick={hideUpdateOptionsHandler} className={styles.postsPage}>
         <UploadPostBtn createPost={createPostHandler} />
