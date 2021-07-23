@@ -8,10 +8,9 @@ import UploadPostBtn from "../../components/UploadPostBtn/UploadPostBtn";
 import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePostForm";
 
 const Posts = ({ posts }) => {
-  //ymd
-
   const router = useRouter();
   const [createPost, setCreatePost] = useState(false);
+  const [reRender, setRerender] = useState(false);
 
   const createPostHandler = () => {
     setCreatePost(true);
@@ -21,8 +20,20 @@ const Posts = ({ posts }) => {
     setCreatePost(false);
   };
 
-  const addNewPostHandler = (newPost) => {
+  const addNewPostHandler = () => {
     router.replace(router.asPath);
+  };
+
+  const toggleUpdateOptionsHandler = (e, type, postId) => {
+    const post = posts.find((post) => postId === post._id);
+    if (type && !e.target.closest("#update-post")) {
+      posts.forEach((post) => (post.isEditing = false));
+      setRerender(!reRender);
+      return;
+    } else if (post) {
+      post.isEditing = true;
+      setRerender(!reRender);
+    }
   };
 
   const postsOutput =
@@ -30,7 +41,7 @@ const Posts = ({ posts }) => {
     posts.length > 0 &&
     posts.map((post) => {
       return (
-        <div>
+        <div key={post._id}>
           <div className={styles.updatePostContainer}>
             <div className={styles.creator}>
               <img
@@ -42,7 +53,12 @@ const Posts = ({ posts }) => {
                 <p className={styles.creatorFollow}>Follow</p>
               </div>
             </div>
-            <UpdatePostUI />
+            <UpdatePostUI
+              isEditing={post.isEditing}
+              showUpdateOptions={(e) =>
+                toggleUpdateOptionsHandler(e, undefined, post._id)
+              }
+            />
           </div>
           <div className={styles.post}>
             <div className={styles.imageContainer}>
@@ -74,7 +90,10 @@ const Posts = ({ posts }) => {
       );
     });
   return (
-    <div className={styles.postsPage}>
+    <div
+      onClick={(e) => toggleUpdateOptionsHandler(e, "hide")}
+      className={styles.postsPage}
+    >
       <CreatePostForm
         addNewPost={(post) => addNewPostHandler(post)}
         hideCreateForm={hideCreateFormHandler}
