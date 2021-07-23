@@ -1,10 +1,12 @@
 import styles from "./updatePostUI.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faFlag } from "@fortawesome/free-solid-svg-icons";
 
 const UpdatePostUI = (props) => {
-  return (
+  const { curUser, postCreatorId } = props;
+  const postOwner = curUser.user.userId === postCreatorId;
+  return curUser.token ? (
     <div
       onClick={props.showUpdateOptions}
       id="update-post"
@@ -14,19 +16,29 @@ const UpdatePostUI = (props) => {
       {props.isEditing && (
         <div className={styles.update}>
           <ul>
-            <li className={styles.updateList}>
-              <FontAwesomeIcon icon={faEdit} />
-              <span>Edit</span>
-            </li>
-            <li className={styles.updateList}>
-              <FontAwesomeIcon icon={faTrashAlt} />
-              <span>Delete</span>
-            </li>
+            {postOwner && (
+              <li className={styles.updateList}>
+                <FontAwesomeIcon icon={faEdit} />
+                <span>Edit</span>
+              </li>
+            )}
+            {postOwner && (
+              <li className={styles.updateList}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+                <span>Delete</span>
+              </li>
+            )}
+            {!postOwner && (
+              <li className={styles.updateList}>
+                <FontAwesomeIcon icon={faFlag} />
+                <span>Report</span>
+              </li>
+            )}
           </ul>
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default UpdatePostUI;

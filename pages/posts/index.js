@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/posts.module.css";
 import moment from "moment";
+import { MyContext } from "../../context/authContext";
 
 import UpdatePostUI from "../../components/PostsPage/UpdatePostUI/UpdatePostUI";
 import UploadPostBtn from "../../components/UploadPostBtn/UploadPostBtn";
 import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePostForm";
 
 const Posts = ({ posts }) => {
+  const context = useContext(MyContext);
+  const { curUser } = context;
   const router = useRouter();
   const [createPost, setCreatePost] = useState(false);
   const [reRender, setRerender] = useState(false);
@@ -53,7 +56,10 @@ const Posts = ({ posts }) => {
                 <p className={styles.creatorFollow}>Follow</p>
               </div>
             </div>
+
             <UpdatePostUI
+              postCreatorId={post.creator.userId}
+              curUser={curUser}
               isEditing={post.isEditing}
               showUpdateOptions={(e) =>
                 toggleUpdateOptionsHandler(e, undefined, post._id)
