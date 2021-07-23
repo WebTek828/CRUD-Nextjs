@@ -8,10 +8,6 @@ const UpdatePostUI = (props) => {
     console.log("Edit this post.");
   };
 
-  const showDeleteWarningHandler = () => {
-    console.log("Show delete warning.");
-  };
-
   const { curUser, postCreatorId } = props;
   const postOwner = curUser.user.userId === postCreatorId;
   return curUser.token ? (
@@ -22,7 +18,7 @@ const UpdatePostUI = (props) => {
     >
       <span className={styles.dot}></span>
       {props.isEditing && (
-        <div className={styles.update}>
+        <div id="update-options" className={styles.update}>
           <ul>
             {postOwner && (
               <li onClick={editPostHandler} className={styles.updateList}>
@@ -32,7 +28,7 @@ const UpdatePostUI = (props) => {
             )}
             {postOwner && (
               <li
-                onClick={showDeleteWarningHandler}
+                onClick={props.toggleDeleteWarning}
                 className={styles.updateList}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />

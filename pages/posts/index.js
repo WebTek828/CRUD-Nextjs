@@ -15,6 +15,12 @@ const Posts = ({ posts }) => {
   const router = useRouter();
   const [createPost, setCreatePost] = useState(false);
   const [reRender, setRerender] = useState(false);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
+  const hideUpdateOptions = () => {
+    posts.forEach((post) => (post.isEditing = false));
+    setRerender(!reRender);
+  };
 
   const createPostHandler = () => {
     setCreatePost(true);
@@ -28,16 +34,21 @@ const Posts = ({ posts }) => {
     router.replace(router.asPath);
   };
 
-  const toggleUpdateOptionsHandler = (e, type, postId) => {
+  const hideUpdateOptionsHandler = (e) => {
+    !e.target.closest("#update-post") && hideUpdateOptions();
+  };
+
+  const showUpdateOptionsHandler = (e, postId) => {
     const post = posts.find((post) => postId === post._id);
-    if (type && !e.target.closest("#update-post")) {
-      posts.forEach((post) => (post.isEditing = false));
-      setRerender(!reRender);
-      return;
-    } else if (post) {
+    if (post && !e.target.closest("#update-options")) {
       post.isEditing = true;
       setRerender(!reRender);
     }
+  };
+
+  const toggleDeleteWarningHandler = (e, hide) => {
+    hide ? setShowDeleteWarning(false) : setShowDeleteWarning(true);
+    hideUpdateOptions();
   };
 
   const postsOutput =
@@ -58,12 +69,11 @@ const Posts = ({ posts }) => {
               </div>
             </div>
             <UpdatePostUI
+              toggleDeleteWarning={toggleDeleteWarningHandler}
               postCreatorId={post.creator.userId}
               curUser={curUser}
               isEditing={post.isEditing}
-              showUpdateOptions={(e) =>
-                toggleUpdateOptionsHandler(e, undefined, post._id)
-              }
+              showUpdateOptions={(e) => showUpdateOptionsHandler(e, post._id)}
             />
           </div>
           <div className={styles.post}>
@@ -102,11 +112,12 @@ const Posts = ({ posts }) => {
         hideCreateForm={hideCreateFormHandler}
         show={createPost}
       />
-      <DeleteWarningModal />
-      <div
-        onClick={(e) => toggleUpdateOptionsHandler(e, "hide")}
-        className={styles.postsPage}
-      >
+      <DeleteWarningModal
+        showModal={showDeleteWarning}
+        showDeleteWarning={toggleDeleteWarningHandler}
+        toggleDeleteWarning={toggleDeleteWarningHandler}
+      />
+      <div onClick={hideUpdateOptionsHandler} className={styles.postsPage}>
         <UploadPostBtn createPost={createPostHandler} />
         <h3>User Posts</h3>
         <div className={styles.posts}>{postsOutput}</div>
