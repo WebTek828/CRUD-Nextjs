@@ -29,6 +29,11 @@
 .creatorFollow:hover {
   text-decoration: underline;
 }
+.updatePostContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .creatorImg {
   width: 3rem;
@@ -41,10 +46,9 @@
   border-top: 1px solid rgba(0, 0, 0, 0.199);
 }
 .imageContainer {
-  flex-basis: 20%;
   align-self: flex-start;
   height: 100px;
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 .imageContainer img {
   width: 8rem;

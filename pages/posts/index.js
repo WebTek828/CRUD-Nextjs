@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/posts.module.css";
 import moment from "moment";
+
+import UpdatePostUI from "../../components/PostsPage/UpdatePostUI/UpdatePostUI";
 import UploadPostBtn from "../../components/UploadPostBtn/UploadPostBtn";
 import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePostForm";
 
@@ -29,15 +31,18 @@ const Posts = ({ posts }) => {
     posts.map((post) => {
       return (
         <div>
-          <div className={styles.creator}>
-            <img
-              className={styles.creatorImg}
-              src="https://images.unsplash.com/photo-1510552776732-03e61cf4b144?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym95fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-            />
-            <div className={styles.creatorInfo}>
-              <h2>{post.creator.username}</h2>
-              <p className={styles.creatorFollow}>Follow</p>
+          <div className={styles.updatePostContainer}>
+            <div className={styles.creator}>
+              <img
+                className={styles.creatorImg}
+                src="https://images.unsplash.com/photo-1510552776732-03e61cf4b144?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym95fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+              />
+              <div className={styles.creatorInfo}>
+                <h2>{post.creator.username}</h2>
+                <p className={styles.creatorFollow}>Follow</p>
+              </div>
             </div>
+            <UpdatePostUI />
           </div>
           <div className={styles.post}>
             <div className={styles.imageContainer}>

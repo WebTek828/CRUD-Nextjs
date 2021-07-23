@@ -1,0 +1,61 @@
+.dots {
+  cursor: pointer;
+  width: 1.8rem;
+  position: relative;
+}
+.dot {
+  height: 5px;
+  width: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+}
+.dot::after {
+  content: "";
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0.5rem;
+}
+
+.dot::before {
+  content: "";
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 1rem;
+}
+.update {
+  position: absolute;
+  display: none;
+}
+.updateList {
+  padding: 1rem 2rem;
+  list-style: none;
+  background: white;
+  box-shadow: 0 4px 4px #f64060;
+  transform: all 0.4s;
+  width: 9rem;
+}
+.updateList:hover svg {
+  color: white;
+}
+.updateList span {
+  margin-left: 0.8rem;
+}
+.updateList:hover {
+  background: #f64060;
+  color: white;
+}
+.updateList svg {
+  color: #f64060;
+}
