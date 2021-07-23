@@ -7,16 +7,19 @@ import BackDrop from "../../BackDrop/BackDrop";
 
 const DeleteWarningModal = (props) => {
   const router = useRouter();
+
   const deletePostHandler = async () => {
+    props.toggleDeleteWarning(undefined, "delete");
+    props.setIsLoading(true);
     const resp = await fetch(
       `http://localhost:3000/api/posts/${props.postId}`,
       {
         method: "DELETE",
       }
     );
-    const deletedPost = await resp.json();
+    await resp.json();
     router.replace(router.asPath);
-    props.toggleDeleteWarning(undefined, "delete");
+    props.setIsLoading(false);
   };
 
   const { showModal } = props;

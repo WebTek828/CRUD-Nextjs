@@ -8,6 +8,7 @@ import UpdatePostUI from "../../components/PostsPage/UpdatePostUI/UpdatePostUI";
 import UploadPostBtn from "../../components/UploadPostBtn/UploadPostBtn";
 import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePostForm";
 import DeleteWarningModal from "../../components/PostsPage/DeleteWarningModal/DeleteWarningModal";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Posts = ({ posts }) => {
   const context = useContext(MyContext);
@@ -16,6 +17,7 @@ const Posts = ({ posts }) => {
   const [createPost, setCreatePost] = useState(false);
   const [reRender, setRerender] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const hideUpdateOptions = () => {
     posts.forEach((post) => (post.isEditing = false));
@@ -38,6 +40,10 @@ const Posts = ({ posts }) => {
     !e.target.closest("#update-post") && hideUpdateOptions();
   };
 
+  const setLoadingHandler = (boolean) => {
+    setIsLoading(boolean);
+  };
+
   const showUpdateOptionsHandler = (e, postId) => {
     const post = posts.find((post) => postId === post._id);
     if (post && !e.target.closest("#update-options")) {
@@ -58,6 +64,7 @@ const Posts = ({ posts }) => {
       return (
         <div key={post._id}>
           <DeleteWarningModal
+            setIsLoading={setLoadingHandler}
             showModal={showDeleteWarning}
             showDeleteWarning={toggleDeleteWarningHandler}
             toggleDeleteWarning={toggleDeleteWarningHandler}
@@ -103,7 +110,6 @@ const Posts = ({ posts }) => {
                     {post.comments.length} Comments
                   </span>
                 </div>
-
                 <span className={styles.date}>{post.date}</span>
               </div>
             </div>
@@ -113,6 +119,7 @@ const Posts = ({ posts }) => {
     });
   return (
     <>
+      <LoadingSpinner isLoading={isLoading} />
       <CreatePostForm
         addNewPost={(post) => addNewPostHandler(post)}
         hideCreateForm={hideCreateFormHandler}
