@@ -4,6 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faFlag } from "@fortawesome/free-solid-svg-icons";
 
 const UpdatePostUI = (props) => {
+  const editPostHandler = () => {
+    console.log("Edit this post.");
+  };
+
+  const showDeleteWarningHandler = () => {
+    console.log("Show delete warning.");
+  };
+
   const { curUser, postCreatorId } = props;
   const postOwner = curUser.user.userId === postCreatorId;
   return curUser.token ? (
@@ -17,13 +25,16 @@ const UpdatePostUI = (props) => {
         <div className={styles.update}>
           <ul>
             {postOwner && (
-              <li className={styles.updateList}>
+              <li onClick={editPostHandler} className={styles.updateList}>
                 <FontAwesomeIcon icon={faEdit} />
                 <span>Edit</span>
               </li>
             )}
             {postOwner && (
-              <li className={styles.updateList}>
+              <li
+                onClick={showDeleteWarningHandler}
+                className={styles.updateList}
+              >
                 <FontAwesomeIcon icon={faTrashAlt} />
                 <span>Delete</span>
               </li>

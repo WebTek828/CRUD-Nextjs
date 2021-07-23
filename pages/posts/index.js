@@ -7,6 +7,7 @@ import { MyContext } from "../../context/authContext";
 import UpdatePostUI from "../../components/PostsPage/UpdatePostUI/UpdatePostUI";
 import UploadPostBtn from "../../components/UploadPostBtn/UploadPostBtn";
 import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePostForm";
+import DeleteWarningModal from "../../components/PostsPage/DeleteWarningModal/DeleteWarningModal";
 
 const Posts = ({ posts }) => {
   const context = useContext(MyContext);
@@ -56,7 +57,6 @@ const Posts = ({ posts }) => {
                 <p className={styles.creatorFollow}>Follow</p>
               </div>
             </div>
-
             <UpdatePostUI
               postCreatorId={post.creator.userId}
               curUser={curUser}
@@ -96,19 +96,22 @@ const Posts = ({ posts }) => {
       );
     });
   return (
-    <div
-      onClick={(e) => toggleUpdateOptionsHandler(e, "hide")}
-      className={styles.postsPage}
-    >
+    <>
       <CreatePostForm
         addNewPost={(post) => addNewPostHandler(post)}
         hideCreateForm={hideCreateFormHandler}
         show={createPost}
       />
-      <UploadPostBtn createPost={createPostHandler} />
-      <h3>User Posts</h3>
-      <div className={styles.posts}>{postsOutput}</div>
-    </div>
+      <DeleteWarningModal />
+      <div
+        onClick={(e) => toggleUpdateOptionsHandler(e, "hide")}
+        className={styles.postsPage}
+      >
+        <UploadPostBtn createPost={createPostHandler} />
+        <h3>User Posts</h3>
+        <div className={styles.posts}>{postsOutput}</div>
+      </div>
+    </>
   );
 };
 
