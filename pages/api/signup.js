@@ -26,9 +26,13 @@ const handler = async (req, res) => {
           email,
         });
         const userId = newUser._id;
-        const token = jwt.sign({ username, email, userId }, "PRIVATE_KEY", {
-          expiresIn: "1h",
-        });
+        const token = jwt.sign(
+          { username, email, userId },
+          process.env.PRIVATEKEY,
+          {
+            expiresIn: "1h",
+          }
+        );
         res.status(200).json({ username, email, token, userId });
       });
     });

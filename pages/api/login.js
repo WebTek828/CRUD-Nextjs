@@ -19,7 +19,7 @@ const handler = async (req, res) => {
         if (result) {
           const token = jwt.sign(
             { username, email, userId: user._id },
-            "PRIVATE_KEY",
+            process.env.PRIVATEKEY,
             {
               expiresIn: "1h",
             }
