@@ -9,7 +9,7 @@ const DeleteWarningModal = (props) => {
   const router = useRouter();
 
   const deletePostHandler = async () => {
-    props.toggleDeleteWarning(undefined, "delete");
+    props.toggleDeleteWarning();
     props.setIsLoading(true);
     const resp = await fetch(
       `http://localhost:3000/api/posts/${props.postId}`,
@@ -17,7 +17,6 @@ const DeleteWarningModal = (props) => {
         method: "DELETE",
       }
     );
-    await resp.json();
     router.replace(router.asPath);
     props.setIsLoading(false);
   };
@@ -25,10 +24,7 @@ const DeleteWarningModal = (props) => {
   const { showModal } = props;
   return showModal ? (
     <>
-      <BackDrop
-        clicked={(e) => props.toggleDeleteWarning(e, "delete")}
-        showBackDrop="show"
-      />
+      <BackDrop clicked={props.toggleDeleteWarning} showBackDrop="show" />
       <Modal
         header="Are you sure you want to delete your post?"
         body={
@@ -41,7 +37,7 @@ const DeleteWarningModal = (props) => {
               Delete
             </Button>
             <Button
-              clicked={(e) => props.toggleDeleteWarning(e, "delete")}
+              clicked={props.toggleDeleteWarning}
               className={styles.btn}
               type="primary"
             >

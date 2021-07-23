@@ -16,7 +16,7 @@ const Posts = ({ posts }) => {
   const router = useRouter();
   const [createPost, setCreatePost] = useState(false);
   const [reRender, setRerender] = useState(false);
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const hideUpdateOptions = () => {
@@ -52,8 +52,8 @@ const Posts = ({ posts }) => {
     }
   };
 
-  const toggleDeleteWarningHandler = (e, hide) => {
-    hide ? setShowDeleteWarning(false) : setShowDeleteWarning(true);
+  const toggleDeleteWarningHandler = (e, postId) => {
+    postId ? setShowDeleteWarning(postId) : setShowDeleteWarning(null);
     hideUpdateOptions();
   };
 
@@ -63,13 +63,6 @@ const Posts = ({ posts }) => {
     posts.map((post) => {
       return (
         <div key={post._id}>
-          <DeleteWarningModal
-            setIsLoading={setLoadingHandler}
-            showModal={showDeleteWarning}
-            showDeleteWarning={toggleDeleteWarningHandler}
-            toggleDeleteWarning={toggleDeleteWarningHandler}
-            postId={post._id}
-          />
           <div className={styles.updatePostContainer}>
             <div className={styles.creator}>
               <img
@@ -82,7 +75,9 @@ const Posts = ({ posts }) => {
               </div>
             </div>
             <UpdatePostUI
-              toggleDeleteWarning={toggleDeleteWarningHandler}
+              toggleDeleteWarning={(e) =>
+                toggleDeleteWarningHandler(e, post._id)
+              }
               postCreatorId={post.creator.userId}
               curUser={curUser}
               isEditing={post.isEditing}
@@ -117,8 +112,16 @@ const Posts = ({ posts }) => {
         </div>
       );
     });
+
   return (
     <>
+      <DeleteWarningModal
+        setIsLoading={setLoadingHandler}
+        showModal={showDeleteWarning}
+        showDeleteWarning={toggleDeleteWarningHandler}
+        toggleDeleteWarning={toggleDeleteWarningHandler}
+        postId={showDeleteWarning}
+      />
       <LoadingSpinner isLoading={isLoading} />
       <CreatePostForm
         addNewPost={(post) => addNewPostHandler(post)}
