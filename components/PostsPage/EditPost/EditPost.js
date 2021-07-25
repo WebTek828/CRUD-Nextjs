@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import styles from "../CreatePostForm/createPostForm.module.css";
 import inputStyles from "../../Input/input.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../../context/authContext";
 
 import BackDrop from "../../BackDrop/BackDrop";
 import Button from "../../Button/Button";
-import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 const EditPostForm = (props) => {
+  console.log(props.post);
+  const context = useContext(MyContext);
+  console.log(context);
   const router = useRouter();
   const { title, description } = props.post;
 
@@ -39,6 +42,7 @@ const EditPostForm = (props) => {
     const data = {
       title: inputVals.title.value,
       description: inputVals.description.value,
+      userId: context.curUser.user.userId,
     };
 
     props.hideCreateForm();
@@ -50,6 +54,7 @@ const EditPostForm = (props) => {
         body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json",
+          authorization: `Bearer ${context.curUser.token}`,
         },
       }
     );
