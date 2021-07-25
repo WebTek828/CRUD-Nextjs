@@ -10,6 +10,7 @@ import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 const EditPostForm = (props) => {
   const { title, description } = props.post;
+  console.log(props.post);
   const [isLoading, setIsLoading] = useState(false);
 
   const [inputVals, setInputVals] = useState({
@@ -33,9 +34,26 @@ const EditPostForm = (props) => {
   };
 
   const editPostHandler = async (e) => {
+    const data = {
+      title: inputVals.title.value,
+      description: inputVals.description.value,
+    };
+    setIsLoading(true);
     e.preventDefault();
     props.hideCreateForm();
     //send http request
+    const resp = await fetch(
+      `http://localhost:3000/api/posts/${props.post._id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+    const updatedPost = await resp.json();
+    console.log(updatedPost);
   };
 
   return (
