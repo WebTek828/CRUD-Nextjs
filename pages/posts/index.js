@@ -27,7 +27,7 @@ const PostsPage = ({ posts }) => {
   };
 
   const createPostHandler = () => {
-    setCreatePost(true);
+    curUser.token ? setCreatePost(true) : router.push("/login");
   };
 
   const hideCreateFormHandler = () => {

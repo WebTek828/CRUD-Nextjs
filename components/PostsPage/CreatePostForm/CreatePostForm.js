@@ -3,6 +3,7 @@ import styles from "./createPostForm.module.css";
 import { MyContext } from "../../../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import useCheckAllValid from "../../customHooks/useCheckAllValid";
 
 import Input from "../../Input/Input";
 import BackDrop from "../../BackDrop/BackDrop";
@@ -22,6 +23,7 @@ const CreatePostForm = (props) => {
       isValid: false,
     },
   });
+  const [isAllValid] = useCheckAllValid(inputVals);
   const formCls = [styles.form];
 
   props.show && formCls.push(styles.show);
@@ -97,7 +99,9 @@ const CreatePostForm = (props) => {
               errorMsg="This field can't be empty"
             />
           </div>
-          <Button className={styles.form__btn}>POST</Button>
+          <Button disabled={!isAllValid} className={styles.form__btn}>
+            POST
+          </Button>
         </div>
       </form>
     </>
