@@ -27,7 +27,7 @@ const Posts = (props) => {
               curUser={curUser}
               isEditing={post.isEditing}
               showUpdateOptions={(e) => showUpdateOptions(e, post._id)}
-              showEditForm={props.showEditForm}
+              showEditForm={() => props.showEditForm(post)}
             />
           </div>
           <div className={styles.post}>

@@ -9,6 +9,7 @@ import CreatePostForm from "../../components/PostsPage/CreatePostForm/CreatePost
 import DeleteWarningModal from "../../components/PostsPage/DeleteWarningModal/DeleteWarningModal";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Posts from "../../components/PostsPage/Posts/Posts";
+import EditPost from "../../components/PostsPage/EditPost/EditPost";
 
 const PostsPage = ({ posts }) => {
   const context = useContext(MyContext);
@@ -59,18 +60,19 @@ const PostsPage = ({ posts }) => {
     hideUpdateOptions();
   };
 
-  const showEditFormHandler = () => {
-    setShowEditForm(true);
+  const showEditFormHandler = (post) => {
+    setShowEditForm(post);
     hideUpdateOptions();
   };
 
   return (
     <>
       {showEditForm && (
-        <CreatePostForm
+        <EditPost
           addNewPost={(post) => addNewPostHandler(post)}
           hideCreateForm={hideCreateFormHandler}
           show={showEditForm}
+          post={showEditForm}
         />
       )}
       <DeleteWarningModal
