@@ -1,0 +1,75 @@
+.post {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.199);
+}
+.creator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  cursor: pointer;
+}
+.creator h2 {
+  font-size: 1.2rem;
+}
+.creatorInfo {
+  display: flex;
+  align-items: center;
+}
+.creatorFollow {
+  color: #029eb6;
+  margin-left: 0.4rem;
+  font-size: 0.9rem;
+}
+.creatorFollow:hover {
+  text-decoration: underline;
+}
+.updatePostContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.creatorImg {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 0.7rem;
+}
+
+.post:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.199);
+}
+.imageContainer {
+  align-self: flex-start;
+  height: 100px;
+  margin-right: 2rem;
+}
+.imageContainer img {
+  width: 8rem;
+  height: 100%;
+  border-radius: 8px;
+}
+.descr {
+  opacity: 0.8;
+}
+.postedTime {
+  opacity: 0.6;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  display: inline-block;
+}
+.header {
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.postInfo {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.postInfo span {
+  margin-right: 1rem;
+  opacity: 0.6;
+}
