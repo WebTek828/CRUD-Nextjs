@@ -5,7 +5,7 @@ import { faEdit, faTrashAlt, faFlag } from "@fortawesome/free-solid-svg-icons";
 
 const UpdatePostUI = (props) => {
   const editPostHandler = () => {
-    console.log("Edit this post.");
+    props.showEditForm();
   };
 
   const { curUser, postCreatorId } = props;

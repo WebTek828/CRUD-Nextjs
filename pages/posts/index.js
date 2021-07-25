@@ -18,6 +18,7 @@ const PostsPage = ({ posts }) => {
   const [reRender, setRerender] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const hideUpdateOptions = () => {
     posts.forEach((post) => (post.isEditing = false));
@@ -30,6 +31,7 @@ const PostsPage = ({ posts }) => {
 
   const hideCreateFormHandler = () => {
     setCreatePost(false);
+    setShowEditForm(false);
   };
 
   const addNewPostHandler = () => {
@@ -57,8 +59,20 @@ const PostsPage = ({ posts }) => {
     hideUpdateOptions();
   };
 
+  const showEditFormHandler = () => {
+    setShowEditForm(true);
+    hideUpdateOptions();
+  };
+
   return (
     <>
+      {showEditForm && (
+        <CreatePostForm
+          addNewPost={(post) => addNewPostHandler(post)}
+          hideCreateForm={hideCreateFormHandler}
+          show={showEditForm}
+        />
+      )}
       <DeleteWarningModal
         setIsLoading={setLoadingHandler}
         showModal={showDeleteWarning}
@@ -81,6 +95,7 @@ const PostsPage = ({ posts }) => {
             curUser={curUser}
             posts={posts}
             toggleDeleteWarning={toggleDeleteWarningHandler}
+            showEditForm={showEditFormHandler}
           />
         </div>
       </div>
