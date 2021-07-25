@@ -69,6 +69,7 @@ const PostsPage = ({ posts }) => {
     <>
       {showEditForm && (
         <EditPost
+          setIsLoading={setLoadingHandler}
           addNewPost={(post) => addNewPostHandler(post)}
           hideCreateForm={hideCreateFormHandler}
           show={showEditForm}

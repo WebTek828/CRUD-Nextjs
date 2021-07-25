@@ -8,12 +8,12 @@ const handler = async (req, res) => {
   } else if (req.method === "PUT") {
     const { id } = req.query;
     const { title, description } = req.body;
-    const updatedPost = await Posts.findByIdAndUpdate(id, {
-      title,
-      description,
-    });
-    console.log(updatedPost);
-    res.status(200).json(updatedPost);
+    const post = await Posts.findById(id);
+    post.title = title;
+    post.description = description;
+    await post.save();
+    console.log(post);
+    res.status(200).json({ post });
   }
 };
 

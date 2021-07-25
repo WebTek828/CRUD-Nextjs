@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "../CreatePostForm/createPostForm.module.css";
 import inputStyles from "../../Input/input.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +10,8 @@ import Button from "../../Button/Button";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 const EditPostForm = (props) => {
+  const router = useRouter();
   const { title, description } = props.post;
-  console.log(props.post);
-  const [isLoading, setIsLoading] = useState(false);
 
   const [inputVals, setInputVals] = useState({
     title: {
@@ -34,12 +34,13 @@ const EditPostForm = (props) => {
   };
 
   const editPostHandler = async (e) => {
+    e.preventDefault();
+    props.setIsLoading(true);
     const data = {
       title: inputVals.title.value,
       description: inputVals.description.value,
     };
-    setIsLoading(true);
-    e.preventDefault();
+
     props.hideCreateForm();
     //send http request
     const resp = await fetch(
@@ -52,13 +53,13 @@ const EditPostForm = (props) => {
         },
       }
     );
-    const updatedPost = await resp.json();
-    console.log(updatedPost);
+    await resp.json();
+    router.replace(router.asPath);
+    props.setIsLoading(false);
   };
 
   return (
     <>
-      <LoadingSpinner isLoading={isLoading} />
       <BackDrop clicked={props.hideCreateForm} showBackDrop={props.show} />
       <form onSubmit={editPostHandler} className={formCls.join(" ")}>
         <div className={styles.form__header}>
