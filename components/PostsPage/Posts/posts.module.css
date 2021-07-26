@@ -90,3 +90,7 @@
 .likeComment span:first-child {
   border-right: 1px solid rgba(0, 0, 0, 0.199);
 }
+.seemore {
+  color: #029eb6;
+  cursor: pointer;
+}

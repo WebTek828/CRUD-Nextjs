@@ -1,3 +1,4 @@
+import { useState } from "react";
 import moment from "moment";
 import styles from "./posts.module.css";
 import UpdatePostUI from "../UpdatePostUI/UpdatePostUI";
@@ -8,6 +9,28 @@ const Posts = (props) => {
     posts &&
     posts.length > 0 &&
     posts.map((post) => {
+      const toggleShrinkTextHandler = () => {
+        post.shrinkText = !post.shrinkText;
+      };
+      let descriptionText = post.description,
+        postDescription;
+
+      if (post.shrinkText) {
+        descriptionText = post.description.substr(0, 200) + "...";
+      }
+      if (post.description.length > 200) {
+        postDescription = (
+          <div>
+            <span>{descriptionText} ...</span>
+            <span onClick={toggleShrinkTextHandler} className={styles.seemore}>
+              {post.shrinkText ? "See More" : "See Less"}
+            </span>
+          </div>
+        );
+      } else {
+        postDescription = post.description;
+      }
+
       return (
         <div className={styles.postContainer} key={post._id}>
           <div className={styles.updatePostContainer}>
@@ -38,7 +61,7 @@ const Posts = (props) => {
             </div>
             <div className={styles.content}>
               <h3 className={styles.header}>{post.title}</h3>
-              <p className={styles.descr}>{post.description}</p>
+              <p className={styles.descr}>{postDescription}</p>
               <span className={styles.postedTime}>
                 {moment(post.createdAt).fromNow()}
               </span>
