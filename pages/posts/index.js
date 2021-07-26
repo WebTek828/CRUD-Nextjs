@@ -82,6 +82,7 @@ const PostsPage = ({ posts }) => {
         showDeleteWarning={toggleDeleteWarningHandler}
         toggleDeleteWarning={toggleDeleteWarningHandler}
         postId={showDeleteWarning}
+        curUser={curUser}
       />
       <LoadingSpinner isLoading={isLoading} />
       <CreatePostForm
@@ -115,7 +116,7 @@ export const getServerSideProps = async (context) => {
   const posts = await resp.json();
   return {
     props: {
-      posts: posts.allPosts,
+      posts: posts,
     },
   };
 };

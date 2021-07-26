@@ -15,6 +15,10 @@ const DeleteWarningModal = (props) => {
       `http://localhost:3000/api/posts/${props.postId}`,
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${props.curUser.token}`,
+        },
       }
     );
     router.replace(router.asPath);

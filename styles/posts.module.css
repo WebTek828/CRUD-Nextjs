@@ -1,4 +1,6 @@
 .posts {
-  width: 60%;
+  width: 30rem;
   margin: 4rem auto;
+
+  padding: 1rem;
 }

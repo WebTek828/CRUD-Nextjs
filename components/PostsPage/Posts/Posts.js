@@ -9,7 +9,7 @@ const Posts = (props) => {
     posts.length > 0 &&
     posts.map((post) => {
       return (
-        <div key={post._id}>
+        <div className={styles.postContainer} key={post._id}>
           <div className={styles.updatePostContainer}>
             <div className={styles.creator}>
               <img
@@ -54,6 +54,10 @@ const Posts = (props) => {
                 <span className={styles.date}>{post.date}</span>
               </div>
             </div>
+          </div>
+          <div className={styles.likeComment}>
+            <span className={styles.like}>Like</span>
+            <span className={styles.comment}>Comment</span>
           </div>
         </div>
       );
