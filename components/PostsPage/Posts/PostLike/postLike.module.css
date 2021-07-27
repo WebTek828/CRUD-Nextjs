@@ -2,6 +2,11 @@
 .commentContainer {
   text-align: center;
   cursor: pointer;
+  transform: all 0.4s;
+}
+.likeContainer:hover,
+.commentContainer:hover {
+  background: rgba(128, 128, 128, 0.2);
 }
 .likeContainer {
   border-right: 1px solid rgba(0, 0, 0, 0.3);
@@ -12,6 +17,7 @@
   display: inline-block;
   text-align: center;
 }
+
 .liked {
   color: #029eb6;
 }

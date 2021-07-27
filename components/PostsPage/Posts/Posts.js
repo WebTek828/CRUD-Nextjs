@@ -5,6 +5,8 @@ import styles from "./posts.module.css";
 import UpdatePostUI from "../UpdatePostUI/UpdatePostUI";
 import PostLike from "./PostLike/PostLike";
 import PostComment from "./PostComment/PostComment";
+import LikeDisplay from "./LikeDisplay/LikeDisplay";
+import CommentDisplay from "./CommentDisplay/CommentDisplay";
 
 const Posts = (props) => {
   const [reRender, setRerender] = useState(false);
@@ -76,17 +78,13 @@ const Posts = (props) => {
                 {moment(post.createdAt).fromNow()}
               </span>
               <div className={styles.postInfo}>
-                <div>
-                  <span className={styles.postLikes}>
-                    {post.likes.length} Likes
-                  </span>
-                  <span className={styles.postComments}>
-                    {post.comments.length} Comments
-                  </span>
-                </div>
                 <span className={styles.date}>{post.date}</span>
               </div>
             </div>
+          </div>
+          <div className={styles.likesComsCount}>
+            <LikeDisplay post={post} />
+            <CommentDisplay post={post} />
           </div>
           <div className={styles.likeComment}>
             <PostLike
