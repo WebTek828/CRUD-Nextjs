@@ -7,8 +7,17 @@ import PostLike from "./PostLike/PostLike";
 import PostComment from "./PostComment/PostComment";
 
 const Posts = (props) => {
+  const [reRender, setRerender] = useState(false);
   const { posts, curUser, showUpdateOptions, toggleDeleteWarning } = props;
-  console.log(posts);
+
+  const updatePostLikeHandler = (updatedPost) => {
+    const postIndex = posts.findIndex(
+      (post) => post._id.toString() === updatedPost._id.toString()
+    );
+    posts[postIndex] = updatedPost;
+    setRerender(!reRender);
+  };
+
   return (
     posts &&
     posts.length > 0 &&
@@ -80,7 +89,11 @@ const Posts = (props) => {
             </div>
           </div>
           <div className={styles.likeComment}>
-            <PostLike curUser={curUser} post={post} />
+            <PostLike
+              updatePostLike={updatePostLikeHandler}
+              curUser={curUser}
+              post={post}
+            />
             <PostComment curUser={curUser} post={post} />
           </div>
         </div>

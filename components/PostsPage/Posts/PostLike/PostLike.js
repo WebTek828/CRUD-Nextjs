@@ -7,6 +7,7 @@ const PostLike = (props) => {
   const postLikeStyle = [styles.likeContainer];
   const router = useRouter();
   const { curUser, post } = props;
+
   const isAuthenticated = !!curUser.token;
   let likedPost;
   if (isAuthenticated) {
@@ -25,14 +26,19 @@ const PostLike = (props) => {
       router.push("/login");
       return;
     }
-    const resp = await fetch(`http://localhost:3000/api/like`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    router.replace(router.asPath);
+    try {
+      const resp = await fetch(`http://localhost:3000/api/like`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      const post = await resp.json();
+      props.updatePostLike(post.post);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
