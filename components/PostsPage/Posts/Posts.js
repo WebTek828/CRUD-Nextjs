@@ -9,26 +9,23 @@ const Posts = (props) => {
     posts &&
     posts.length > 0 &&
     posts.map((post) => {
-      const toggleShrinkTextHandler = () => {
-        post.shrinkText = !post.shrinkText;
+      const toggleShrinkHandler = () => {
+        post.expandText = post.expandText ? false : true;
       };
-      let descriptionText = post.description,
-        postDescription;
+      let postDescription = <span>{post.description}</span>;
 
-      if (post.shrinkText) {
-        descriptionText = post.description.substr(0, 200) + "...";
-      }
-      if (post.description.length > 200) {
+      if (post.description.length > 100) {
+        let text = !post.expandText
+          ? post.description.substr(0, 100)
+          : post.description;
         postDescription = (
           <div>
-            <span>{descriptionText} ...</span>
-            <span onClick={toggleShrinkTextHandler} className={styles.seemore}>
-              {post.shrinkText ? "See More" : "See Less"}
+            <span>{text}</span>
+            <span onClick={toggleShrinkHandler} className={styles.seemore}>
+              {post.expandText ? "See Less" : "...See more"}
             </span>
           </div>
         );
-      } else {
-        postDescription = post.description;
       }
 
       return (
