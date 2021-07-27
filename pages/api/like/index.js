@@ -5,7 +5,12 @@ const handler = async (req, res) => {
       const { postId, userId } = req.body;
       const post = await Posts.findById(postId);
       if (post) {
-        post.likes.push(userId);
+        const liked = post.likes.findIndex((uid) => uid.toString() === userId);
+        if (liked !== -1) {
+          post.likes.splice(liked, 1);
+        } else {
+          post.likes.push(userId);
+        }
         await post.save();
         res.status(200).json({ post });
       } else {

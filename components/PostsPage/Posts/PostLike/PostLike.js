@@ -16,12 +16,23 @@ const PostLike = (props) => {
     likedPost && postLikeStyle.push(styles.liked);
   }
 
-  const postLikeHandler = () => {
-    // if (!curUser.token) {
-    //   router.push("/login");
-    // }
-    console.log(curUser);
-    console.log(post);
+  const postLikeHandler = async () => {
+    const data = {
+      userId: curUser.user.userId,
+      postId: post._id,
+    };
+    if (!curUser.token) {
+      router.push("/login");
+      return;
+    }
+    const resp = await fetch(`http://localhost:3000/api/like`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    router.replace(router.asPath);
   };
 
   return (
