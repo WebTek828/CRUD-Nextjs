@@ -1,10 +1,14 @@
 import { useState } from "react";
 import moment from "moment";
 import styles from "./posts.module.css";
+
 import UpdatePostUI from "../UpdatePostUI/UpdatePostUI";
+import PostLike from "./PostLike/PostLike";
+import PostComment from "./PostComment/PostComment";
 
 const Posts = (props) => {
   const { posts, curUser, showUpdateOptions, toggleDeleteWarning } = props;
+  console.log(posts);
   return (
     posts &&
     posts.length > 0 &&
@@ -76,8 +80,8 @@ const Posts = (props) => {
             </div>
           </div>
           <div className={styles.likeComment}>
-            <span className={styles.like}>Like</span>
-            <span className={styles.comment}>Comment</span>
+            <PostLike curUser={curUser} post={post} />
+            <PostComment curUser={curUser} post={post} />
           </div>
         </div>
       );

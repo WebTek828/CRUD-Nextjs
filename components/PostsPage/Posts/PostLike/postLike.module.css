@@ -1,0 +1,17 @@
+.likeContainer,
+.commentContainer {
+  text-align: center;
+  cursor: pointer;
+}
+.likeContainer {
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+.like,
+.comment {
+  padding: 0.5rem 0.4rem;
+  display: inline-block;
+  text-align: center;
+}
+.liked {
+  color: #029eb6;
+}
