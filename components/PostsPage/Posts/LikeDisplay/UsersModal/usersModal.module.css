@@ -1,0 +1,19 @@
+.usersModal {
+  height: 70vh;
+  background-color: black;
+  position: fixed;
+  width: 25rem;
+  top: 20%;
+  transition: all 0.4s;
+  animation: fadeIn 0.4s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10rem) scale(0.8);
+  }
+  to {
+    opacity: 01;
+    transform: translateY(0) scale(1);
+  }
+}

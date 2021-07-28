@@ -1,15 +1,24 @@
+import { useState } from "react";
 import styles from "./likeDisplay.module.css";
 
+import UsersModal from "./UsersModal/UsersModal";
+import BackDrop from "../../../BackDrop/BackDrop";
+
 const LikeDisplay = (props) => {
+  const [users, setUsers] = useState(null);
+  const showModal = users && users.length > 0;
   const { post } = props;
 
   const displayLikeUserHandler = async () => {
-    console.log("Display like.");
     const resp = await fetch(
       `http://localhost:3000/api/posts/${post._id}/like`
     );
     const json = await resp.json();
-    console.log(json);
+    setUsers(json);
+  };
+
+  const setHideModalHandler = () => {
+    setUsers(null);
   };
 
   return (
@@ -17,7 +26,12 @@ const LikeDisplay = (props) => {
       <span onClick={displayLikeUserHandler} className={styles.postLikes}>
         {post.likes.length} Likes
       </span>
-      <div></div>
+      {showModal && (
+        <>
+          <BackDrop clicked={setHideModalHandler} showBackDrop={showModal} />
+          <UsersModal users={users} />
+        </>
+      )}
     </>
   );
 };
