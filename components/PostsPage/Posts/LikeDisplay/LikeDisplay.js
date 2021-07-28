@@ -6,10 +6,11 @@ import BackDrop from "../../../BackDrop/BackDrop";
 
 const LikeDisplay = (props) => {
   const [users, setUsers] = useState(null);
-  const showModal = users && users.length > 0;
+  const [showModal, setShowModal] = useState(false);
   const { post } = props;
 
   const displayLikeUserHandler = async () => {
+    setShowModal(true);
     const resp = await fetch(
       `http://localhost:3000/api/posts/${post._id}/like`
     );
@@ -19,6 +20,7 @@ const LikeDisplay = (props) => {
 
   const setHideModalHandler = () => {
     setUsers(null);
+    setShowModal(false);
   };
 
   return (
