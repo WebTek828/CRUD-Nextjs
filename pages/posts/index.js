@@ -11,19 +11,22 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Posts from "../../components/PostsPage/Posts/Posts";
 import EditPost from "../../components/PostsPage/EditPost/EditPost";
 
-const PostsPage = ({ posts }) => {
+const PostsPage = ({ posts: postsData }) => {
+  const [posts, setPosts] = useState(postsData);
   const context = useContext(MyContext);
   const { curUser } = context;
   const router = useRouter();
   const [createPost, setCreatePost] = useState(false);
-  const [reRender, setRerender] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
   const hideUpdateOptions = () => {
-    posts.forEach((post) => (post.isEditing = false));
-    setRerender(!reRender);
+    const updatedPosts = posts.map((post) => {
+      post.isEditing = false;
+      return post;
+    });
+    setPosts(updatedPosts);
   };
 
   const createPostHandler = () => {
@@ -48,11 +51,13 @@ const PostsPage = ({ posts }) => {
   };
 
   const showUpdateOptionsHandler = (e, postId) => {
-    const post = posts.find((post) => postId === post._id);
-    if (post && !e.target.closest("#update-options")) {
-      post.isEditing = true;
-      setRerender(!reRender);
-    }
+    const updatedPost = posts.map((post) => {
+      if (post && !e.target.closest("#update-options") && postId === post._id) {
+        post.isEditing = true;
+      }
+      return post;
+    });
+    setPosts(updatedPost);
   };
 
   const toggleDeleteWarningHandler = (e, postId) => {
@@ -100,6 +105,7 @@ const PostsPage = ({ posts }) => {
             posts={posts}
             toggleDeleteWarning={toggleDeleteWarningHandler}
             showEditForm={showEditFormHandler}
+            setPosts={setPosts}
           />
         </div>
       </div>

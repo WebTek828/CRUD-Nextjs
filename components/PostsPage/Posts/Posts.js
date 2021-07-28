@@ -7,9 +7,9 @@ import PostLike from "./PostLike/PostLike";
 import PostComment from "./PostComment/PostComment";
 import LikeDisplay from "./LikeDisplay/LikeDisplay";
 import CommentDisplay from "./CommentDisplay/CommentDisplay";
+import PostDescription from "./PostDescription/PostDescription";
 
 const Posts = (props) => {
-  const [reRender, setRerender] = useState(false);
   const { posts, curUser, showUpdateOptions, toggleDeleteWarning } = props;
 
   const updatePostLikeHandler = (updatedPost) => {
@@ -17,32 +17,13 @@ const Posts = (props) => {
       (post) => post._id.toString() === updatedPost._id.toString()
     );
     posts[postIndex] = updatedPost;
-    setRerender(!reRender);
+    props.setPosts(posts);
   };
 
   return (
     posts &&
     posts.length > 0 &&
     posts.map((post) => {
-      const toggleShrinkHandler = () => {
-        post.expandText = post.expandText ? false : true;
-      };
-      let postDescription = <span>{post.description}</span>;
-
-      if (post.description.length > 100) {
-        let text = !post.expandText
-          ? post.description.substr(0, 100)
-          : post.description;
-        postDescription = (
-          <div>
-            <span>{text}</span>
-            <span onClick={toggleShrinkHandler} className={styles.seemore}>
-              {post.expandText ? "See Less" : "...See more"}
-            </span>
-          </div>
-        );
-      }
-
       return (
         <div className={styles.postContainer} key={post._id}>
           <div className={styles.updatePostContainer}>
@@ -73,7 +54,7 @@ const Posts = (props) => {
             </div>
             <div className={styles.content}>
               <h3 className={styles.header}>{post.title}</h3>
-              <p className={styles.descr}>{postDescription}</p>
+              <PostDescription description={post.description} />
               <span className={styles.postedTime}>
                 {moment(post.createdAt).fromNow()}
               </span>
