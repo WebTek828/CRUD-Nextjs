@@ -21,7 +21,7 @@ const PostDescription = (props) => {
       <div>
         <span>{text}</span>
         <span className={styles.seemore} onClick={toggleTextExpandHandler}>
-          {expandText ? "See less" : "...See More"}
+          {expandText ? "See less" : "See More"}
         </span>
       </div>
     );

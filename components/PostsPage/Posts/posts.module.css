@@ -82,6 +82,8 @@
 }
 
 .seemore {
-  color: #029eb6;
+  font-weight: 600;
   cursor: pointer;
+  display: block;
+  margin-top: 0.8rem;
 }
