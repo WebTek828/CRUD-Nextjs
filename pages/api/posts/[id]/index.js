@@ -1,5 +1,5 @@
-import checkAuthorization from "../../../middlewares/checkAuthorization";
-const Posts = require("../../../models/Posts");
+import checkAuthorization from "../../../../middlewares/checkAuthorization";
+const Posts = require("../../../../models/Posts");
 
 const handler = async (req, res) => {
   checkAuthorization(req, res);
