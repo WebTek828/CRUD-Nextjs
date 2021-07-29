@@ -31,13 +31,6 @@
 .username {
   margin-bottom: 0.4rem;
 }
-.follow {
-  padding: 0.4rem 1rem;
-  color: white;
-  border-radius: 61px;
-  cursor: pointer;
-  background: rgba(128, 0, 128, 0.5);
-}
 
 @keyframes fadeIn {
   from {

@@ -34,7 +34,6 @@ const Posts = (props) => {
               />
               <div className={styles.creatorInfo}>
                 <h2>{post.creator.username}</h2>
-                <p className={styles.creatorFollow}>Follow</p>
               </div>
             </div>
             <UpdatePostUI

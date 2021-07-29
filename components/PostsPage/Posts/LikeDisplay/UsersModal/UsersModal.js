@@ -1,12 +1,14 @@
-import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
 import styles from "./usersModal.module.css";
+
+import FollowUser from "../../../../Users/FollowUser/FollowUser";
+
 const UsersModal = (props) => {
   const { users } = props;
-  console.log(users);
   const userOutput =
     users &&
     users.length > 0 &&
     users.map((user) => {
+      console.log(user);
       return (
         <div className={styles.modalContent}>
           <div className={styles.userInfo}>
@@ -16,7 +18,7 @@ const UsersModal = (props) => {
               <span>3,100 followers</span>
             </div>
           </div>
-          <span className={styles.follow + " " + styles.following}>Follow</span>
+          <FollowUser followUser={user._id} />
         </div>
       );
     });

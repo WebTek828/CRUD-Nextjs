@@ -7,8 +7,6 @@ import connectToDB from "../../connectDB";
 const handler = async (req, res) => {
   connectToDB();
   if (req.method === "POST") {
-    console.log("Oops:");
-    console.log(req.body);
     const { email, username, password } = req.body;
     const userExist = await User.findOne({ email });
     if (userExist) {
@@ -24,6 +22,8 @@ const handler = async (req, res) => {
           username,
           password: hash,
           email,
+          followers: [],
+          following: [],
         });
         const userId = newUser._id;
         const token = jwt.sign(
