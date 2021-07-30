@@ -9,8 +9,15 @@ const FollowUsers = (props) => {
   const router = useRouter();
   const context = useContext(MyContext);
   const curUserId = context.curUser.userId;
-  console.log(curUserId);
-  console.log(props);
+  let curUserFollower;
+  if (curUserId) {
+    curUserFollower = context.curUser.following.find(
+      (id) => id === props.followUser
+    );
+  }
+
+  const followBtnStyle = [styles.follow];
+  curUserFollower && followBtnStyle.push(styles.follower);
 
   const followUserHandler = async () => {
     if (!curUserId) {
@@ -30,13 +37,13 @@ const FollowUsers = (props) => {
       },
       body: JSON.stringify(data),
     });
-    const json = resp.json();
-    console.log(json);
+    const json = await resp.json();
+    context.updateFollowing(json);
   };
 
   return (
-    <span onClick={followUserHandler} className={styles.follow}>
-      Follow
+    <span onClick={followUserHandler} className={followBtnStyle.join(" ")}>
+      {curUserFollower ? "Unfollow" : "Follow"}
     </span>
   );
 };

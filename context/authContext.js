@@ -16,10 +16,18 @@ function Provider(props) {
       router.push("/posts");
     }
   };
-  console.log(curUser);
+
+  const updateFollowingHandler = (userFollowing) => {
+    const updatedUser = { ...curUser, following: userFollowing };
+    setCurUser(updatedUser);
+  };
   return (
     <MyContext.Provider
-      value={{ curUser, login: (userInfo) => loginHandler(userInfo) }}
+      value={{
+        curUser,
+        login: (userInfo) => loginHandler(userInfo),
+        updateFollowing: updateFollowingHandler,
+      }}
     >
       {props.children}
     </MyContext.Provider>

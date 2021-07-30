@@ -4,4 +4,9 @@
   border-radius: 61px;
   cursor: pointer;
   background: rgba(128, 0, 128, 0.5);
+  opacity: 0.8;
+}
+.follower {
+  background: rgba(128, 0, 128, 1);
+  opacity: 1;
 }
