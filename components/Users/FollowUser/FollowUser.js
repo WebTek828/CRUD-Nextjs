@@ -41,11 +41,11 @@ const FollowUsers = (props) => {
     context.updateFollowing(json);
   };
 
-  return (
+  return curUserId !== props.followUser ? (
     <span onClick={followUserHandler} className={followBtnStyle.join(" ")}>
       {curUserFollower ? "Unfollow" : "Follow"}
     </span>
-  );
+  ) : null;
 };
 
 export default FollowUsers;
