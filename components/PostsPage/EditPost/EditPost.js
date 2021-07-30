@@ -42,7 +42,7 @@ const EditPostForm = (props) => {
     const data = {
       title: inputVals.title.value,
       description: inputVals.description.value,
-      userId: context.curUser.user.userId,
+      userId: context.curUser.userId,
     };
 
     props.hideCreateForm();

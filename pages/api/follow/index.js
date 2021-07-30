@@ -4,13 +4,21 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
       const { followerUserId, userId } = req.body;
-      const [follower, user] = await Users.find({
-        _id: [followerUserId, userId],
-      });
-      follower.following.push(userId);
-      user.followers.push(followerUserId);
+      let follower = await Users.findById(followerUserId);
+      const alreadyFollowing = follower.following.filter(
+        (id) => id.toString() === userId
+      );
+      if (alreadyFollowing.length > 0) {
+        const updatedFollower = follower.following.filter(
+          (id) => id.toString() !== userId
+        );
+        follower.following = updatedFollower;
+      } else {
+        follower.following.push(userId);
+      }
       await follower.save();
-      await user.save();
+      console.log(follower);
+      res.status(200).json(follower);
     } catch (err) {
       console.log(err);
     }

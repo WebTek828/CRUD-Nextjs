@@ -14,7 +14,7 @@ const handler = async (req, res) => {
         .status(400)
         .json({ msg: "User with the provided email doesn't exist." });
     } else {
-      const { username, email } = user;
+      const { username, email, followers, following } = user;
       bcrypt.compare(password, user.password, function (err, result) {
         if (result) {
           const token = jwt.sign(
@@ -24,7 +24,14 @@ const handler = async (req, res) => {
               expiresIn: "1h",
             }
           );
-          res.status(200).json({ token, username, email, userId: user._id });
+          res.status(200).json({
+            token,
+            username,
+            email,
+            userId: user._id,
+            followers,
+            following,
+          });
         } else {
           res.status(400).json({ msg: "Incorrect password." });
         }

@@ -9,7 +9,7 @@ const UpdatePostUI = (props) => {
   };
 
   const { curUser, postCreatorId } = props;
-  const postOwner = curUser.user.userId === postCreatorId;
+  const postOwner = curUser.userId === postCreatorId;
   return curUser.token ? (
     <div
       onClick={props.showUpdateOptions}

@@ -11,9 +11,7 @@ const PostLike = (props) => {
   const isAuthenticated = !!curUser.token;
   let likedPost;
   if (isAuthenticated) {
-    likedPost = post.likes.some(
-      (uid) => uid === curUser.user.userId.toString()
-    );
+    likedPost = post.likes.some((uid) => uid === curUser.userId.toString());
     likedPost && postLikeStyle.push(styles.liked);
   }
 
