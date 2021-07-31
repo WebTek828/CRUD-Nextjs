@@ -25,7 +25,7 @@ const handler = async (req, res) => {
       follow(beingFollowedUser, "followers", followerUserId);
       await follower.save();
       await beingFollowedUser.save();
-      res.status(200).json("Success");
+      res.status(200).json({ follower, beingFollowedUser });
     } catch (err) {
       console.log(err);
     }

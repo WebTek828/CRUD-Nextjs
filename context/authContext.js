@@ -18,6 +18,7 @@ function Provider(props) {
   };
 
   const updateFollowingHandler = (userFollowing) => {
+    console.log(userFollowing);
     const updatedUser = { ...curUser, following: userFollowing };
     setCurUser(updatedUser);
   };
