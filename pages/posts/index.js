@@ -71,6 +71,18 @@ const PostsPage = ({ posts: postsData }) => {
     hideUpdateOptions();
   };
 
+  const deletePostHandler = (postId) => {
+    const updatedPost = posts.filter((post) => post._id !== postId);
+    setPosts(updatedPost);
+  };
+
+  const editPostHandler = (updatedPost) => {
+    const index = posts.findIndex((post) => post._id === updatedPost._id);
+    const updatedPosts = [...posts];
+    updatedPosts[index] = updatedPost;
+    setPosts(updatedPosts);
+  };
+
   return (
     <>
       {showEditForm && (
@@ -80,9 +92,11 @@ const PostsPage = ({ posts: postsData }) => {
           hideCreateForm={hideCreateFormHandler}
           show={showEditForm}
           post={showEditForm}
+          editPost={editPostHandler}
         />
       )}
       <DeleteWarningModal
+        deletePost={deletePostHandler}
         setIsLoading={setLoadingHandler}
         showModal={showDeleteWarning}
         showDeleteWarning={toggleDeleteWarningHandler}

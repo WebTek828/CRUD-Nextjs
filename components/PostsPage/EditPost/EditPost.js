@@ -38,29 +38,34 @@ const EditPostForm = (props) => {
 
   const editPostHandler = async (e) => {
     e.preventDefault();
-    props.setIsLoading(true);
-    const data = {
-      title: inputVals.title.value,
-      description: inputVals.description.value,
-      userId: context.curUser.userId,
-    };
+    try {
+      props.setIsLoading(true);
+      const data = {
+        title: inputVals.title.value,
+        description: inputVals.description.value,
+        userId: context.curUser.userId,
+      };
 
-    props.hideCreateForm();
-    //send http request
-    const resp = await fetch(
-      `http://localhost:3000/api/posts/${props.post._id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-type": "application/json",
-          authorization: `Bearer ${context.curUser.token}`,
-        },
-      }
-    );
-    await resp.json();
-    router.replace(router.asPath);
-    props.setIsLoading(false);
+      props.hideCreateForm();
+      //send http request
+      const resp = await fetch(
+        `http://localhost:3000/api/posts/${props.post._id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-type": "application/json",
+            authorization: `Bearer ${context.curUser.token}`,
+          },
+        }
+      );
+      const updatedPost = await resp.json();
+      props.editPost(updatedPost.post);
+      props.setIsLoading(false);
+    } catch (err) {
+      alert(err);
+      props.setIsLoading(false);
+    }
   };
 
   return (

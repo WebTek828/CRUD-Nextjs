@@ -9,20 +9,24 @@ const DeleteWarningModal = (props) => {
   const router = useRouter();
 
   const deletePostHandler = async () => {
-    props.toggleDeleteWarning();
-    props.setIsLoading(true);
-    const resp = await fetch(
-      `http://localhost:3000/api/posts/${props.postId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${props.curUser.token}`,
-        },
-      }
-    );
-    router.replace(router.asPath);
-    props.setIsLoading(false);
+    try {
+      props.toggleDeleteWarning();
+      props.setIsLoading(true);
+      const resp = await fetch(
+        `http://localhost:3000/api/posts/${props.postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${props.curUser.token}`,
+          },
+        }
+      );
+      props.deletePost(props.postId);
+      props.setIsLoading(false);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const { showModal } = props;
