@@ -38,18 +38,18 @@ const CreatePostForm = (props) => {
   };
 
   const createPostHandler = async (e) => {
+    e.preventDefault();
     props.hideCreateForm();
     setIsLoading(true);
     const data = {
       title: inputVals.title.value,
       description: inputVals.description.value,
       creator: {
-        username: context.curUser.user.username,
-        userId: context.curUser.user.userId,
+        username: context.curUser.username,
+        userId: context.curUser.userId,
       },
       token: context.curUser.token,
     };
-    e.preventDefault();
     const resp = await fetch(`http://localhost:3000/api/posts`, {
       method: "POST",
       body: JSON.stringify(data),

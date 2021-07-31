@@ -11,8 +11,8 @@ const handler = async (req, res) => {
         .populate("likes")
         .exec((err, post) => {
           const likedUsers = post.likes.map((user) => {
-            const { username, email, _id } = user;
-            return { username, email, _id };
+            const { username, email, _id, followers, following } = user;
+            return { username, email, _id, followers, following };
           });
           res.status(200).json(likedUsers);
         });

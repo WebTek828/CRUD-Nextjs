@@ -38,8 +38,9 @@ const PostsPage = ({ posts: postsData }) => {
     setShowEditForm(false);
   };
 
-  const addNewPostHandler = () => {
-    router.replace(router.asPath);
+  const addNewPostHandler = (newPost) => {
+    const updatedPost = [...posts, newPost.newPost];
+    setPosts(updatedPost);
   };
 
   const hideUpdateOptionsHandler = (e) => {

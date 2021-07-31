@@ -16,6 +16,7 @@ const handler = async (req, res, next) => {
       comments: [],
       createdAt: new Date(),
     });
+    console.log(newPost);
     res.status(200).json({ newPost });
   } else if (req.method === "GET") {
     const allPosts = await Posts.find({});

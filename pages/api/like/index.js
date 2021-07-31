@@ -5,7 +5,6 @@ const handler = async (req, res) => {
       const { postId, userId } = req.body;
       const post = await Posts.findById(postId);
       if (post) {
-        console.log(post);
         const liked = post.likes.findIndex((uid) => uid.toString() === userId);
         if (liked !== -1) {
           post.likes.splice(liked, 1);

@@ -17,7 +17,7 @@ const PostLike = (props) => {
 
   const postLikeHandler = async () => {
     const data = {
-      userId: curUser.user.userId,
+      userId: curUser.userId,
       postId: post._id,
     };
     if (!curUser.token) {
